@@ -26,7 +26,7 @@ export default function RootLayout({
         <Providers>
           <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-[#0d1b2a] dark:to-[#1b263b] transition-colors duration-300 flex flex-col">
             <Navbar />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-grow pt-16">{children}</main>
             <Footer /> {/* <-- 2. Tambahkan komponen Footer di sini */}
           </div>
         </Providers>

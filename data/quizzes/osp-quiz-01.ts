@@ -16,7 +16,7 @@ export const ospQuiz: Quiz = {
     {
       id: "q1",
       type: "fill_blank",
-      question: "Soal isian singkat nomor 1.",
+      question: "Rival akan menyusun $4$ bola merah, $6$ bola biru, dan $n$ bola kuning secara melingkar sedemikian sehingga setiap bola dengan warna yang sama tidak bersebelahan. Tentukan semua nilai $n$ sedemikian sehingga hal ini tidak mungkin dilakukan.",
       answer: "Jawaban 1",
       explanation: "Penjelasan untuk soal nomor 1.",
       points: 10,

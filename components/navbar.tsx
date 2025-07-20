@@ -4,8 +4,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { motion, useAnimation } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation"; // Impor useRouter
+import { motion } from "framer-motion";
 import { Moon, Sun, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/theme-context";
@@ -23,41 +23,37 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { user, signOut } = useAuth();
   const pathname = usePathname();
+  const router = useRouter(); // Gunakan hook useRouter
 
-  // --- 1. State untuk melacak visibilitas dan posisi scroll ---
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  // -----------------------------------------------------------
 
   const loggedInNavItems = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Lessons", path: "/lessons" },
     { name: "Quizzes", path: "/quizzes" },
+    { name: "Exams", path: "/exams" }, // <-- TAMBAHKAN INI
     { name: "Problems", path: "/problems" },
   ];
 
   const loggedOutNavItems = [
     { name: "Lessons", path: "/lessons" },
     { name: "Quizzes", path: "/quizzes" },
+    { name: "Exams", path: "/exams" }, // <-- TAMBAHKAN INI
     { name: "Problems", path: "/problems" },
   ];
 
   const navItems = user ? loggedInNavItems : loggedOutNavItems;
   const logoPath = user ? "/dashboard" : "/";
   
-  // --- 2. Logika untuk mengontrol visibilitas navbar saat scroll ---
   useEffect(() => {
     const controlNavbar = () => {
       const currentScrollY = window.scrollY;
-
-      // Tampilkan navbar jika scroll di paling atas atau jika scroll ke atas
       if (currentScrollY < lastScrollY || currentScrollY <= 10) {
         setVisible(true);
       } else {
         setVisible(false);
       }
-      
-      // Simpan posisi scroll terakhir
       setLastScrollY(currentScrollY);
     };
 
@@ -66,19 +62,17 @@ export default function Navbar() {
       window.removeEventListener('scroll', controlNavbar);
     };
   }, [lastScrollY]);
-  // ----------------------------------------------------------------
 
   const handleSignOut = async () => {
     try {
       await signOut();
-      window.location.href = "/";
+      router.push("/"); // Gunakan router.push untuk navigasi
     } catch (error) {
       console.error("Error signing out:", error);
     }
   };
 
   return (
-    // --- 3. Gunakan motion.nav untuk animasi dan ubah 'sticky' menjadi 'fixed' ---
     <motion.nav
       className="fixed top-0 z-50 w-full backdrop-blur-sm bg-white/80 dark:bg-[#0d1b2a]/80 border-b border-gray-200 dark:border-[#415a77]/30"
       animate={{ y: visible ? 0 : "-100%" }}
