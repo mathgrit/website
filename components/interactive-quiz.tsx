@@ -70,12 +70,13 @@ export default function InteractiveQuiz({
     let score = 0
     quiz.questions.forEach((question) => {
       const userAnswer = answers[question.id]
-      if (question.type === "multiple_choice") {
-        if (question.options && question.options[Number(userAnswer)] === question.answer) {
-          score += question.points
-        }
+      if (question.type === "multiple_choice" && question.options) {
+          const correctAnswerIndex = question.options.indexOf(question.answer as string);
+          if (Number(userAnswer) === correctAnswerIndex) {
+              score += question.points;
+          }
       } else if (userAnswer?.toString().toLowerCase() === question.answer.toString().toLowerCase()) {
-        score += question.points
+          score += question.points;
       }
     })
 
