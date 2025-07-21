@@ -7,15 +7,15 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-01",
     type: "fill_blank",
-    question: "Jika $f(x) = 3x^2 + 5x - 2$, maka nilai dari $f'(2)$ adalah...",
-    answer: "17",
+    question: "Rival ingin menyusun $4$ bola merah, $6$ bola biru, dan $n$ bola kuning secara melingkar sedemikian sehingga bola dengan warna yang sama tidak bersebelahan. Tentukan jumlah semua nilai $n$ sedemikian sehingga kondisi tersebut tidak mungkin untuk dilakukan.",
+    answer: "54",
     explanation: "Turunan dari f(x) adalah f'(x) = 6x + 5. Maka f'(2) = 6(2) + 5 = 17.",
     points: 5,
   },
   {
     id: "fib-02",
     type: "fill_blank",
-    question: "Nilai dari $\\int_{0}^{1} (4x^3) dx$ adalah...",
+    question: "Misalkan suatu fungsi $f:\\mathbb{Z}\\to\\mathbb{Z}$ berlaku $$f(x)+f(x-1)=x^2.$$ Jika $f(20)=2025$, tentukan nilai $f(100)$.",
     answer: "1",
     explanation: "Integral dari 4x^3 adalah x^4. Dievaluasi dari 0 sampai 1, hasilnya adalah 1^4 - 0^4 = 1.",
     points: 5,
@@ -23,7 +23,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-03",
     type: "fill_blank",
-    question: "Tentukan nilai dari determinan matriks $A = \\begin{pmatrix} 2 & 5 \\\\ 1 & 3 \\end{pmatrix}$",
+    question: "Keliling sebuah segitiga yang memiliki garis tinggi $2$, $3$, dan $4$ adalah $\\frac{a\\sqrt{b}}{c}$. Jika $a,b,c\\in\\mathbb{N}$ dan $gcd(a,b,c)=1$ serta $b$ bukan bilangan kuadrat sempurna, tentukan nilai $a+b+c$.",
     answer: "1",
     explanation: "Determinan dihitung sebagai (2*3) - (5*1) = 6 - 5 = 1.",
     points: 5,
@@ -31,7 +31,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-04",
     type: "fill_blank",
-    question: "Jika $z = 3 + 4i$, maka $|z|$ adalah...",
+    question: "Hitung nilai dari $$\\frac{1}{1331}\\sum_{a=1}^{11}\\sum_{b=1}^{11}\\sum_{c=1}^{11}(abc+ab+bc+ca+a+b+c).$$",
     answer: "5",
     explanation: "Modulus dari bilangan kompleks dihitung sebagai sqrt(a^2 + b^2), yaitu sqrt(3^2 + 4^2) = sqrt(9 + 16) = sqrt(25) = 5.",
     points: 5,
@@ -39,7 +39,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-05",
     type: "fill_blank",
-    question: "Banyaknya cara menyusun kata 'MATH' adalah...",
+    question: "Diberikan $a$ dan $b$ adalah bilangan asli saling relatif prima yang memenuhi persamaan $$12a(24a+1)=b(b+1).$$ Tentukan nilai dari $a+b$.",
     answer: "24",
     explanation: "Ini adalah permutasi dari 4 objek yang berbeda, yaitu 4! = 4 * 3 * 2 * 1 = 24.",
     points: 5,
@@ -47,7 +47,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-06",
     type: "fill_blank",
-    question: "Suku ke-10 dari barisan aritmetika 2, 5, 8, ... adalah...",
+    question: "Jika $0<x<\\frac{\\pi}{2}$ dan $$4\\tan{x}+9\\cot{x}\\leq12,$$ maka nilai $\\sin{x}$ yang mungkin adalah $\\dots$",
     answer: "29",
     explanation: "Rumus suku ke-n adalah Un = a + (n-1)d. U10 = 2 + (10-1)*3 = 2 + 27 = 29.",
     points: 5,
@@ -55,7 +55,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-07",
     type: "fill_blank",
-    question: "Nilai dari $\\lim_{x \\to \\infty} \\frac{2x^2 - 1}{x^2 + 3}$ adalah...",
+    question: "Titik $P$ adalah suatu titik pada segiempat konveks $ABCD$ dengan $PA=2$, $PB=3$, $PC=5$, dan $PD=6$. Luas maksimum segiempat $ABCD$ adalah $\\dots$",
     answer: "2",
     explanation: "Karena pangkat tertinggi pada pembilang dan penyebut sama, limitnya adalah rasio dari koefisien pangkat tertinggi, yaitu 2/1 = 2.",
     points: 5,
@@ -63,7 +63,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-08",
     type: "fill_blank",
-    question: "Jika $\\log_2(x) = 4$, maka nilai $x$ adalah...",
+    question: "Tiga bilangan berbeda $a,b,c$ akan dipilih satu per satu secara acak dari $\\{1,2,3,\\dots,10\\}$ dengan memperhatikan urutan. Probabilitas bahwa $ab+c$ genap adalah $\dots$",
     answer: "16",
     explanation: "Dari definisi logaritma, jika log_b(a) = c, maka b^c = a. Jadi, 2^4 = x, yang berarti x = 16.",
     points: 5,
@@ -71,7 +71,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-09",
     type: "fill_blank",
-    question: "Hasil dari $2A + B$ jika $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ dan $B = \\begin{pmatrix} 0 & -1 \\\\ -2 & 0 \\end{pmatrix}$ adalah matriks...",
+    question: "Jika $$x^2+xy+8x=-9,\\text{ dan}$$ $$4y^2+3xy+16y=-7,$$ maka nilai $x+2y$ yang mungkin adalah $\\dots$",
     answer: "[[2,3],[4,8]]",
     explanation: "2A adalah [[2,4],[6,8]]. 2A + B adalah [[2+0, 4-1],[6-2, 8+0]] = [[2,3],[4,8]].",
     points: 5,
@@ -79,7 +79,7 @@ export const advancedMathExam: QuizQuestion[] = [
   {
     id: "fib-10",
     type: "fill_blank",
-    question: "Peluang munculnya mata dadu berjumlah 5 dari lemparan dua dadu adalah...",
+    question: "Diberikan kubus $ABCD.EFGH$ dengan panjang rusuk $5$ satuan panjang. Titik $I$ dan $J$ pada $BF$ sehingga $IJ=1$ satuan panjang. Titik $K$ dan $L$ pada $CG$ sehingga $KL=2$ satuan panjang. Semut bergerak dari $A$ ke $H$ dengan lintasan $AIJKLH$. Panjang lintasan minimum yang ditempuh semut adalah $\\dots$",
     answer: "4/36",
     explanation: "Kombinasi yang menghasilkan 5 adalah (1,4), (4,1), (2,3), (3,2). Ada 4 kemungkinan dari total 36 kemungkinan.",
     points: 5,

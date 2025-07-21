@@ -1,3 +1,4 @@
+// app/exams/page.tsx
 "use client"
 
 import { useState, useCallback, useMemo } from "react"
@@ -47,10 +48,6 @@ export default function MathExamPage() {
     setExamState("in-progress");
   };
 
-  const handleSubmit = useCallback(() => {
-    setExamState("finished");
-  }, []);
-
   const calculateScore = useCallback(() => {
     let score = 0;
     questions.forEach((question) => {
@@ -65,11 +62,44 @@ export default function MathExamPage() {
       ) {
         score += question.points;
       } else if (question.type === "step_proof" && userAnswer.trim() !== "") {
+        // Untuk soal esai, kita berikan poin jika jawaban tidak kosong.
+        // Penilaian lebih lanjut bisa dilakukan di backend jika diperlukan.
         score += question.points;
       }
     });
     return score;
   }, [answers, questions]);
+
+  const handleSubmit = useCallback(async () => {
+    const finalScore = calculateScore();
+
+    try {
+      const response = await fetch('/api/exams/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          examId: 'advanced-math-exam-01', // ID ujian bisa dibuat dinamis
+          score: finalScore,
+          totalPoints,
+          answers,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit exam results');
+      }
+
+      console.log('Exam results submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting exam:', error);
+      // Di sini Anda bisa menambahkan notifikasi error untuk pengguna, misalnya menggunakan toast.
+    } finally {
+      setExamState("finished");
+    }
+  }, [answers, calculateScore, totalPoints]);
+
 
   if (examState === "not-started") {
     return (
@@ -125,7 +155,6 @@ export default function MathExamPage() {
                   <CardTitle className="text-2xl font-bold">Advanced Mathematics Exam</CardTitle>
                   <p className="text-muted-foreground mt-1">Answer all questions to the best of your ability</p>
                 </div>
-                {/* Memanggil ExamTimer dengan cara yang lebih sederhana */}
                 <ExamTimer duration={examDuration} onTimeUp={handleSubmit} />
               </div>
             </CardHeader>
