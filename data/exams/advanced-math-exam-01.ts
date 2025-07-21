@@ -9,7 +9,7 @@ export const advancedMathExam: QuizQuestion[] = [
     type: "fill_blank",
     question: "Rival ingin menyusun $4$ bola merah, $6$ bola biru, dan $n$ bola kuning secara melingkar sedemikian sehingga bola dengan warna yang sama tidak bersebelahan. Tentukan jumlah semua nilai $n$ sedemikian sehingga kondisi tersebut tidak mungkin untuk dilakukan.",
     answer: "54",
-    explanation: "Turunan dari f(x) adalah f'(x) = 6x + 5. Maka f'(2) = 6(2) + 5 = 17.",
+    explanation: "Andaikan $n > 10$. Perhatikan bahwa di antara dua bola kuning setidaknya terdapat satu bola dengan warna lain. Karena terdapat $n$ bola kuning, bisa dikatakan bahwa paling sedikit terdapat $n$ buah bola dengan warna lain. Hal ini bertentangan dengan fakta bahwa banyaknya bola dengan warna lain (merah atau biru) adalah 10 bola. Dengan demikian, $n≤ 10$. Selanjutnya, dengan argumen yang sama, kita bisa mengetahui bahwa terdapat setidaknya enam bola dengan warna selain merah (karena terdapat enam bola merah). Fakta tersebut berakibat langsung kepada $n≥2$. Perhatikan bahwa untuk sembarang $n$ dengan $2\\leq n \\leq 10$, bola-bola tersebut dapat disusun pada sekeliling lingkaran sedemikian sehingga setiap bola yang berwarna sama tidak berdekatan. Salah satu cara penyusunan yang valid adalah dengan memperhatikan warna yang paling dominan (banyak) dari bola-bola tersebut (yaitu merah atau kuning, tergantung pada nilai n), dilanjutkan dengan meletakkan bola-bola dengan warna lain di antara bola dengan warna dominan tersebut sehingga memenuhi kondisi yang diberikan. Jadi, jumlah semua nilai $n$ yang mungkin adalah $2+3+4+5+6+7+8+9+10 = 54$.",
     points: 5,
   },
   {
@@ -32,8 +32,8 @@ export const advancedMathExam: QuizQuestion[] = [
     id: "fib-04",
     type: "fill_blank",
     question: "Hitung nilai dari $$\\frac{1}{1331}\\sum_{a=1}^{11}\\sum_{b=1}^{11}\\sum_{c=1}^{11}(abc+ab+bc+ca+a+b+c).$$",
-    answer: "5",
-    explanation: "Modulus dari bilangan kompleks dihitung sebagai sqrt(a^2 + b^2), yaitu sqrt(3^2 + 4^2) = sqrt(9 + 16) = sqrt(25) = 5.",
+    answer: "342",
+    explanation: "Misalkan $$T=\\frac{1}{1331}\\sum_{a=1}^{11}\\sum_{b=1}^{11}\\sum_{c=1}^{11}(abc+ab+bc+ca+a+b+c).$$ Perhatikan bahwa $abc+ab+bc+ca+a+b+c=(a+1)(b+1)(c+1)-1$. Sehingga $$1331T=\\sum_{a=1}^{11}\\sum_{b=1}^{11}\\sum_{c=1}^{11}[(a+1)(b+1)(c+1)-1]$$ $$=\\sum_{a=1}^{11}\\sum_{b=1}^{11}\\sum_{c=1}^{11}(a+1)(b+1)(c+1)-\\sum_{a=1}^{11}\\sum_{b=1}^{11}\\sum_{c=1}^{11}1$$ $$=\\sum_{a=1}^{11}(a+1)\\times\\sum_{b=1}^{11}(b+1)\\times\\sum_{c=1}^{11}(c+1)-11^3$$  $$=(2+3+\\dotsc+12)^3-11^3=77^3-11^3$$ $$1331T=11^3(7^3-1)=1331\\times342$$ $$T=342$$",
     points: 5,
   },
   {
