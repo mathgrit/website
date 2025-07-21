@@ -4,14 +4,12 @@
 import { useState, useCallback, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle } from "lucide-react"
 import { QuestionCard } from "./components/question-card"
 import { ExamTimer } from "./components/exam-timer"
 import { ExamNavigation } from "./components/exam-navigation"
 import { ExamStartPage } from "./components/exam-start-page"
+import { ExamResultsPage } from "./components/exam-results-page" // <-- Impor komponen baru
 import { advancedMathExam } from "@/data/exams/advanced-math-exam-01"
 import type { QuizQuestion as Question } from "@/data/types";
 
@@ -47,23 +45,13 @@ export default function MathExamPage() {
   const handleStartExam = () => {
     setExamState("in-progress");
   };
-
+  
   const calculateScore = useCallback(() => {
     let score = 0;
     questions.forEach((question) => {
       const userAnswer = answers[question.id];
       if (!userAnswer) return;
-      if (question.type === "multiple_choice" && userAnswer === question.answer) {
-        score += question.points;
-      } else if (
-        question.type === "fill_blank" &&
-        question.answer &&
-        userAnswer.trim().toLowerCase() === question.answer.toString().trim().toLowerCase()
-      ) {
-        score += question.points;
-      } else if (question.type === "step_proof" && userAnswer.trim() !== "") {
-        // Untuk soal esai, kita berikan poin jika jawaban tidak kosong.
-        // Penilaian lebih lanjut bisa dilakukan di backend jika diperlukan.
+      if (userAnswer.trim().toLowerCase() === question.answer?.toString().trim().toLowerCase()) {
         score += question.points;
       }
     });
@@ -74,32 +62,22 @@ export default function MathExamPage() {
     const finalScore = calculateScore();
 
     try {
-      const response = await fetch('/api/exams/submit', {
+      await fetch('/api/exams/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          examId: 'advanced-math-exam-01', // ID ujian bisa dibuat dinamis
+          examId: 'advanced-math-exam-01',
           score: finalScore,
           totalPoints,
           answers,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit exam results');
-      }
-
-      console.log('Exam results submitted successfully!');
     } catch (error) {
       console.error('Error submitting exam:', error);
-      // Di sini Anda bisa menambahkan notifikasi error untuk pengguna, misalnya menggunakan toast.
     } finally {
       setExamState("finished");
     }
   }, [answers, calculateScore, totalPoints]);
-
 
   if (examState === "not-started") {
     return (
@@ -113,31 +91,14 @@ export default function MathExamPage() {
   }
 
   if (examState === "finished") {
-    const score = calculateScore();
-    const percentage = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0;
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#0d1b2a] dark:to-[#1b263b] p-4">
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-2xl">
-          <Card className="p-8 text-center shadow-lg bg-white/80 dark:bg-[#1b263b]/80 backdrop-blur-sm">
-            <CardContent className="space-y-6">
-              <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
-              <h1 className="text-3xl font-bold">Exam Completed!</h1>
-              <div className="space-y-2">
-                <div className="text-6xl font-bold text-blue-600 dark:text-cyan-400">{percentage}%</div>
-                <p className="text-xl text-muted-foreground">
-                  You scored {score} out of {totalPoints} points
-                </p>
-                <Badge variant={percentage >= 80 ? "default" : percentage >= 60 ? "secondary" : "destructive"}>
-                  {percentage >= 80 ? "Excellent" : percentage >= 60 ? "Good" : "Needs Improvement"}
-                </Badge>
-              </div>
-              <Button onClick={() => window.location.reload()} size="lg">
-                Take Another Exam
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
+      <ExamResultsPage
+        score={calculateScore()}
+        totalPoints={totalPoints}
+        questions={questions}
+        userAnswers={answers}
+        onRestart={() => window.location.reload()}
+      />
     );
   }
 
@@ -156,7 +117,7 @@ export default function MathExamPage() {
                   <p className="text-muted-foreground mt-1">Answer all questions to the best of your ability</p>
                 </div>
                 <ExamTimer duration={examDuration} onTimeUp={handleSubmit} />
-              </div>
+              </div >
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
