@@ -40,8 +40,8 @@ export const advancedMathExam: QuizQuestion[] = [
     id: "fib-05",
     type: "fill_blank",
     question: "Diberikan $a$ dan $b$ adalah bilangan asli saling relatif prima yang memenuhi persamaan $$12a(24a+1)=b(b+1).$$ Tentukan nilai dari $a+b$.",
-    answer: "24",
-    explanation: "Ini adalah permutasi dari 4 objek yang berbeda, yaitu 4! = 4 * 3 * 2 * 1 = 24.",
+    answer: "521",
+    explanation: "Perhatikan bahwa karena ruas kiri persamaan habis dibagi $a$, maka ruas kanan juga harus habis dibagi $a$. Karena $a$ dan $b$ relatif prima, maka $a|b+1$. Misalkan $b+1=ak$ untuk suatu bilangan asli $k$. Substitusi $b=ak-1$ ke persamaan awal, diperoleh $$12a(24a+1)=(ak-1)ak$$ yang ekuivalen dengan $$a(k^2-288)=k+12.$$ Akibatnya $k^2-288|k+12$ sehingga berlaku $k^2-288\\leq k+12\\iff(k-\\frac{1}{2})^2\\leq300+\\frac{1}{4}$. Dengan demikian, $k\\leq17$. Di sisi lain, $k^2-288>0$ yang berakibat $k\\geq17$. Jadi, haruslah $k=17$ dan $a=29$. Selanjutnya substitusikan $a=29$ ke persamaan awal, didapat $b=492$. $$\\therefore a+b=29+492=521.$$",
     points: 5,
   },
   {
