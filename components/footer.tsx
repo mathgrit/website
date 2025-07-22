@@ -1,7 +1,7 @@
 // Lokasi: components/footer.tsx
 
 import Link from "next/link";
-import { Github, Twitter, Linkedin, Instagram, X, Telescope, Phone, PhoneCall, PhoneCallIcon } from "lucide-react";
+import { Github, Twitter, Linkedin, Instagram, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,7 +9,6 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           
-          {/* Kolom 1: Logo */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold">∞</span>
@@ -22,7 +21,6 @@ export default function Footer() {
             </p>
           </div>
           
-          {/* Kolom 2: Navigate */}
           <div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wider uppercase">Navigate</h3>
             <ul className="mt-4 space-y-4">
@@ -32,20 +30,18 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Kolom 3: Legal */}
           <div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wider uppercase">Legal</h3>
             <ul className="mt-4 space-y-4">
+              {/* Pastikan link ini mengarah ke /about */}
               <li><Link href="/about" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">About</Link></li>
               <li><Link href="/privacy" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</Link></li>
               <li><Link href="/terms" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</Link></li>
             </ul>
           </div>
           
-          {/* PERUBAHAN: Kolom 4: Kontak (baru) */}
           <div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wider uppercase">Contact</h3>
-            {/* Ikon sosial media dipindahkan ke sini */}
             <div className="flex space-x-6 mt-4">
               <a href="#" className="text-gray-400 hover:text-gray-500"><Instagram className="h-6 w-6" /></a>
               <a href="#" className="text-gray-400 hover:text-gray-500"><Phone className="h-6 w-6" /></a>
@@ -55,7 +51,6 @@ export default function Footer() {
           
         </div>
         
-        {/* PERUBAHAN: Bagian Copyright di tengah */}
         <div className="mt-8 border-t border-gray-200 dark:border-[#415a77]/30 pt-8 flex items-center justify-center">
           <p className="text-base text-gray-400">&copy; {new Date().getFullYear()} MathGrit. All rights reserved.</p>
         </div>
