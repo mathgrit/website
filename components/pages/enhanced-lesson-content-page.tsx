@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { ChevronLeft, BookOpen, Play, FileText, Calculator } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useProgress } from "@/contexts/progress-context"
@@ -15,12 +15,13 @@ import YouTubePlayer from "@/components/youtube-player"
 import InteractiveExample from "@/components/interactive-example"
 import { BlockMath } from "react-katex"
 import LessonSlideViewer from "@/components/lesson-slide-viewer"
-import PdfViewer from "@/components/pdf-viewer"; // Impor komponen PDF viewer baru
+import PdfViewer from "@/components/pdf-viewer";
 import type { Course } from "@/data/types"
 
 export default function EnhancedLessonContentPage({ course }: { course: Course }) {
   const [activeTab, setActiveTab] = useState("materials")
   const { getProgress } = useProgress()
+  const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null); // State untuk PDF yang dipilih
 
   if (!course) {
     return (
@@ -32,6 +33,26 @@ export default function EnhancedLessonContentPage({ course }: { course: Course }
       </div>
     )
   }
+
+  // Komponen untuk kartu materi
+  const MaterialCard = ({ material }: { material: { name: string; url: string } }) => (
+    <motion.div whileHover={{ y: -5 }}>
+      <Card 
+        className="bg-white/80 dark:bg-[#1b263b]/80 backdrop-blur-sm border-gray-200 dark:border-[#415a77]/30 hover:shadow-xl transition-all duration-300 group cursor-pointer"
+        onClick={() => setSelectedPdfUrl(material.url)}
+      >
+        <CardHeader>
+          <div className="flex items-center space-x-4">
+            <FileText className="h-8 w-8 text-blue-500 dark:text-cyan-400" />
+            <div>
+              <CardTitle className="text-lg font-semibold group-hover:text-blue-600 dark:group-hover:text-cyan-400">{material.name}</CardTitle>
+              <CardDescription>Click to open document</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
+    </motion.div>
+  );
 
   return (
     <div className="min-h-screen pt-20 pb-12">
@@ -64,15 +85,36 @@ export default function EnhancedLessonContentPage({ course }: { course: Course }
             <TabsTrigger value="formulas" className="flex items-center space-x-2"><FileText className="h-4 w-4" /><span>Formulas</span></TabsTrigger>
           </TabsList>
 
-          {/* Tab Materi (PDF atau Slides) */}
+          {/* --- PERUBAHAN LOGIKA PADA TAB MATERIALS --- */}
           <TabsContent value="materials">
-            {course.pdfUrl ? (
-              <PdfViewer fileUrl={course.pdfUrl} />
-            ) : course.slides && course.slides.length > 0 ? (
-              <LessonSlideViewer slides={course.slides} />
+            {selectedPdfUrl ? (
+              // Tampilan PDF Viewer jika ada PDF yang dipilih
+              <div>
+                <Button onClick={() => setSelectedPdfUrl(null)} variant="outline" className="mb-4">
+                  <ChevronLeft className="h-4 w-4 mr-2" />
+                  Back to Materials
+                </Button>
+                <PdfViewer fileUrl={selectedPdfUrl} />
+              </div>
             ) : (
-              <div className="text-center py-20 text-gray-500">
-                Materi pelajaran untuk kursus ini belum tersedia.
+              // Tampilan daftar kartu materi
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {course.materials && course.materials.filter(m => m.type === 'pdf').length > 0 ? (
+                  course.materials.filter(m => m.type === 'pdf').map((material, index) => (
+                    <MaterialCard key={index} material={material} />
+                  ))
+                ) : (
+                  course.slides && course.slides.length > 0 ? (
+                    // Fallback untuk menampilkan slide jika tidak ada PDF
+                    <div className="col-span-full">
+                      <LessonSlideViewer slides={course.slides} />
+                    </div>
+                  ) : (
+                    <div className="col-span-full text-center py-20 text-gray-500">
+                      Materi pelajaran untuk kursus ini belum tersedia.
+                    </div>
+                  )
+                )}
               </div>
             )}
           </TabsContent>
