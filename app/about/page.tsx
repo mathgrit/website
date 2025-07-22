@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Linkedin, Github, Twitter, Users, Target, Lightbulb, Rocket } from "lucide-react"
+import { Linkedin, Github, Twitter, Instagram, Users, Target, Lightbulb, Rocket } from "lucide-react"
+import Link from "next/link"
 
 export default function AboutPage() {
   const teamMembers = [
@@ -15,11 +16,11 @@ export default function AboutPage() {
       name: "Angga Nurohman, Ph.D.",
       role: "Founder & Lead Developer",
       bio: "Passionate about creating innovative educational technology that makes learning mathematics enjoyable and accessible.",
-      avatar: "/placeholder-user.jpg", // Menggunakan placeholder yang ada
+      avatar: "/placeholder-user.jpg",
       social: {
         linkedin: "#",
         github: "#",
-        twitter: "#",
+        instagram: "#",
       },
     },
     {
@@ -33,6 +34,16 @@ export default function AboutPage() {
       },
     },
     {
+        name: "Willy Moch. Shabirin Karmana, M. Pd.",
+        role: "Content Strategist",
+        bio: "Expert in mathematical content and problem-solving strategies for competitive programming and olympiads.",
+        avatar: "/placeholder-user.jpg",
+        social: {
+          linkedin: "#",
+          github: "#",
+        },
+      },
+    {
       name: "Jaki Kurniawan, M. Pd.",
       role: "UX/UI Designer",
       bio: "Creative designer focused on building intuitive and beautiful interfaces that enhance the learning experience.",
@@ -43,18 +54,7 @@ export default function AboutPage() {
       },
     },
     {
-      name: "Willy Moch. Shabirin Karmana, M. Pd.",
-      role: "Data Scientist",
-      bio: "Leverages machine learning and analytics to personalize learning paths and improve student outcomes.",
-      avatar: "/placeholder-user.jpg",
-      social: {
-        linkedin: "#",
-        github: "#",
-        twitter: "#",
-      },
-    },
-    {
-      name: "Faizal, M.M.",
+      name: "Faizal, M.M",
       role: "Data Scientist",
       bio: "Leverages machine learning and analytics to personalize learning paths and improve student outcomes.",
       avatar: "/placeholder-user.jpg",
@@ -98,7 +98,6 @@ export default function AboutPage() {
   ]
 
   return (
-    // Menggunakan gaya latar belakang yang konsisten dengan layout utama
     <div className="min-h-screen pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
@@ -106,7 +105,7 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-24"
         >
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
@@ -122,7 +121,7 @@ export default function AboutPage() {
             </p>
             <div className="relative">
               <img
-                src="/placeholder.jpg" // Menggunakan placeholder yang ada
+                src="/placeholder.jpg"
                 alt="Mathematics learning illustration showing collaboration and innovation"
                 className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl"
               />
@@ -135,8 +134,9 @@ export default function AboutPage() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-16"
+          className="mb-24"
         >
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Meet the Team</h2>
@@ -146,15 +146,18 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Tata Letak Tim Menggunakan Flexbox untuk Perataan Tengah */}
+          <div className="flex flex-wrap justify-center gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
+                className="w-full max-w-xs flex flex-col"
               >
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white/80 backdrop-blur-sm dark:bg-[#1b263b]/80 border-gray-200 dark:border-[#415a77]/30">
+                <Card className="h-full flex flex-col hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white/80 backdrop-blur-sm dark:bg-[#1b263b]/80 border-gray-200 dark:border-[#415a77]/30">
                   <CardHeader className="text-center pb-4 pt-6">
                     <Avatar className="w-20 h-20 mx-auto mb-4">
                       <AvatarImage src={member.avatar} alt={member.name} />
@@ -170,8 +173,8 @@ export default function AboutPage() {
                       {member.role}
                     </Badge>
                   </CardHeader>
-                  <CardContent className="text-center px-6 pb-6">
-                    <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm leading-relaxed">{member.bio}</p>
+                  <CardContent className="text-center px-6 pb-6 flex flex-col flex-grow">
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm leading-relaxed flex-grow">{member.bio}</p>
                     <div className="flex justify-center space-x-2">
                       {member.social.linkedin && (
                         <Button asChild size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full bg-transparent">
@@ -188,6 +191,11 @@ export default function AboutPage() {
                            <a href={member.social.twitter} target="_blank" rel="noopener noreferrer"><Twitter className="h-4 w-4" /></a>
                         </Button>
                       )}
+                      {member.social.instagram && (
+                        <Button asChild size="sm" variant="outline" className="w-10 h-10 p-0 rounded-full bg-transparent">
+                           <a href={member.social.instagram} target="_blank" rel="noopener noreferrer"><Instagram className="h-4 w-4" /></a>
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -200,6 +208,7 @@ export default function AboutPage() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-16"
         >
@@ -211,13 +220,13 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Timeline */}
             <div className="space-y-8">
               {milestones.map((milestone, index) => (
                 <motion.div
                   key={milestone.year}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 * index }}
                   className="flex items-start space-x-4"
                 >
@@ -238,18 +247,18 @@ export default function AboutPage() {
                 </motion.div>
               ))}
             </div>
-
-            {/* Story Image */}
+            
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="relative"
             >
               <Card className="overflow-hidden bg-white/80 backdrop-blur-sm dark:bg-[#1b263b]/80 border-gray-200 dark:border-[#415a77]/30">
                 <CardContent className="p-0">
                   <img
-                    src="/placeholder.jpg" // Menggunakan placeholder yang ada
+                    src="/placeholder.jpg"
                     alt="MathGrit journey and growth illustration"
                     className="w-full h-auto"
                   />

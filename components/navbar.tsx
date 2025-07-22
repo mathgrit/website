@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation"; // Impor useRouter
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Moon, Sun, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { user, signOut } = useAuth();
   const pathname = usePathname();
-  const router = useRouter(); // Gunakan hook useRouter
+  const router = useRouter();
 
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -32,15 +32,16 @@ export default function Navbar() {
     { name: "Dashboard", path: "/dashboard" },
     { name: "Lessons", path: "/lessons" },
     { name: "Quizzes", path: "/quizzes" },
-    { name: "Exams", path: "/exams" }, // <-- TAMBAHKAN INI
+    { name: "Exams", path: "/exams" },
     { name: "Problems", path: "/problems" },
   ];
 
   const loggedOutNavItems = [
     { name: "Lessons", path: "/lessons" },
     { name: "Quizzes", path: "/quizzes" },
-    { name: "Exams", path: "/exams" }, // <-- TAMBAHKAN INI
+    { name: "Exams", path: "/exams" },
     { name: "Problems", path: "/problems" },
+    { name: "About", path: "/about" }, // <-- TAUTAN BARU DITAMBAHKAN DI SINI
   ];
 
   const navItems = user ? loggedInNavItems : loggedOutNavItems;
@@ -66,7 +67,7 @@ export default function Navbar() {
   const handleSignOut = async () => {
     try {
       await signOut();
-      router.push("/"); // Gunakan router.push untuk navigasi
+      router.push("/");
     } catch (error) {
       console.error("Error signing out:", error);
     }
