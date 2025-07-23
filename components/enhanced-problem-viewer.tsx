@@ -16,8 +16,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import MathExpression from "./math-expression"
-import type { Problem } from "./problem-data"
+import LatexRenderer from "@/components/ui/latex-renderer" // Menggunakan LatexRenderer yang sudah ada
+import { BlockMath } from "react-katex"
+import type { Problem } from "@/data/types" // <-- PERUBAHAN: Impor tipe dari @/data/types
 
 interface EnhancedProblemViewerProps {
   problem: Problem
@@ -48,8 +49,8 @@ export default function EnhancedProblemViewer({
           i < Math.floor(difficulty)
             ? "text-yellow-400 fill-current"
             : i < difficulty
-              ? "text-yellow-400 fill-current opacity-50"
-              : "text-gray-300 dark:text-gray-600"
+            ? "text-yellow-400 fill-current opacity-50"
+            : "text-gray-300 dark:text-gray-600"
         }`}
       />
     ))
@@ -123,7 +124,7 @@ export default function EnhancedProblemViewer({
               {/* Problem Statement */}
               <div className="prose dark:prose-invert max-w-none">
                 <div className="p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
-                  <MathExpression math={problem.statement} display={false} />
+                  <LatexRenderer>{problem.statement}</LatexRenderer>
                 </div>
               </div>
 
@@ -208,11 +209,10 @@ export default function EnhancedProblemViewer({
                       transition={{ duration: 0.3 }}
                       className="p-6 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500"
                     >
-                      <MathExpression math={solutionSteps[solutionStep]} display={true} className="text-center" />
+                      <BlockMath math={solutionSteps[solutionStep]} />
                     </motion.div>
                   </AnimatePresence>
 
-                  {/* Progress Indicator */}
                   <div className="flex justify-center space-x-2">
                     {solutionSteps.map((_, index) => (
                       <button
@@ -222,8 +222,8 @@ export default function EnhancedProblemViewer({
                           index === solutionStep
                             ? "bg-blue-500"
                             : index < solutionStep
-                              ? "bg-green-500"
-                              : "bg-gray-300 dark:bg-gray-600"
+                            ? "bg-green-500"
+                            : "bg-gray-300 dark:bg-gray-600"
                         }`}
                       />
                     ))}

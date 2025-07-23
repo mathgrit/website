@@ -33,10 +33,10 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wider uppercase">Legal</h3>
             <ul className="mt-4 space-y-4">
-              {/* Pastikan link ini mengarah ke /about */}
+              {/* PERUBAHAN: Tautan disesuaikan ke halaman /legal */}
               <li><Link href="/about" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">About</Link></li>
-              <li><Link href="/privacy" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</Link></li>
-              <li><Link href="/terms" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</Link></li>
+              <li><Link href="/legal#privacy-policy" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</Link></li>
+              <li><Link href="/legal#terms-of-service" className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</Link></li>
             </ul>
           </div>
           
