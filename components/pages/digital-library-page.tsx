@@ -13,8 +13,7 @@ export default function DigitalLibraryPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedBook, setSelectedBook] = useState<Ebook | null>(null);
-  const [isReaderOpen, setIsReaderOpen] = useState(false); // State untuk mengontrol modal
-  
+  const [isReaderOpen, setIsReaderOpen] = useState(false);
   const [ebooks, setEbooks] = useState<Ebook[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,18 +21,20 @@ export default function DigitalLibraryPage() {
     const fetchEbooks = async () => {
       setIsLoading(true);
       try {
-        const { data, error } = await supabase
-          .from('ebooks')
-          .select('*');
-        
+        const { data, error } = await supabase.from('ebooks').select('*');
         if (error) throw error;
 
-        const formattedData = data.map(book => ({
-          ...book,
-          coverImage: book.cover_image_url, 
+        const formattedData = data.map((book) => ({
+          id: book.id,
+          title: book.title,
+          author: book.author,
+          category: book.category,
+          fileUrl: book.file_url,           // mapping snake_case -> camelCase
+          totalPages: book.total_pages,     // mapping snake_case -> camelCase
+          coverImageUrl: book.cover_image_url,
         }));
-        
-        setEbooks(formattedData || []);
+
+        setEbooks(formattedData);
       } catch (error) {
         console.error("Gagal mengambil data e-book:", error);
       } finally {
@@ -58,12 +59,11 @@ export default function DigitalLibraryPage() {
 
   const handleReadClick = (book: Ebook) => {
     setSelectedBook(book);
-    setIsReaderOpen(true); // Buka modal secara eksplisit
+    setIsReaderOpen(true);
   };
 
   const handleCloseReader = () => {
     setIsReaderOpen(false);
-    // Beri sedikit jeda sebelum menghapus data buku agar animasi penutupan mulus
     setTimeout(() => {
       setSelectedBook(null);
     }, 300);
@@ -94,7 +94,9 @@ export default function DigitalLibraryPage() {
             />
           </div>
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="w-full sm:w-48"><SelectValue placeholder="Categories" /></SelectTrigger>
+            <SelectTrigger className="w-full sm:w-48">
+              <SelectValue placeholder="Categories" />
+            </SelectTrigger>
             <SelectContent>
               {categories.map((category) => (
                 <SelectItem key={category} value={category}>
@@ -114,11 +116,11 @@ export default function DigitalLibraryPage() {
             ))}
           </div>
         )}
-        
+
         {!isLoading && filteredBooks.length === 0 && (
           <div className="text-center py-12 text-gray-500">
-              <h3>No books found</h3>
-              <p>Try adjusting your search terms.</p>
+            <h3>No books found</h3>
+            <p>Try adjusting your search terms.</p>
           </div>
         )}
       </div>

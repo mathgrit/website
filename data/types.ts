@@ -99,6 +99,7 @@ export interface Ebook {
   title: string;
   author: string;
   category: string;
-  coverImage: string;
+  fileUrl: string;
   totalPages: number;
+  coverImageUrl: string;
 }
