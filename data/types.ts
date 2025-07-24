@@ -93,3 +93,12 @@ export interface QuizResults {
   score: number;
   totalQuestions: number;
 }
+
+export interface Ebook {
+  id: string;
+  title: string;
+  author: string;
+  category: string;
+  coverImage: string;
+  totalPages: number;
+}

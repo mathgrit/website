@@ -1,5 +1,3 @@
-// Lokasi: components/navbar.tsx
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -28,12 +26,14 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  // --- PERUBAHAN: Menambahkan kembali "Exams" dan "Library" ---
   const loggedInNavItems = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Lessons", path: "/lessons" },
     { name: "Quizzes", path: "/quizzes" },
     { name: "Exams", path: "/exams" },
     { name: "Problems", path: "/problems" },
+    { name: "Library", path: "/library" },
   ];
 
   const loggedOutNavItems = [
@@ -41,8 +41,10 @@ export default function Navbar() {
     { name: "Quizzes", path: "/quizzes" },
     { name: "Exams", path: "/exams" },
     { name: "Problems", path: "/problems" },
-    { name: "About", path: "/about" }, // <-- TAUTAN BARU DITAMBAHKAN DI SINI
+    { name: "Library", path: "/library" },
+    { name: "About", path: "/about" },
   ];
+  // ----------------------------------------------------
 
   const navItems = user ? loggedInNavItems : loggedOutNavItems;
   const logoPath = user ? "/dashboard" : "/";

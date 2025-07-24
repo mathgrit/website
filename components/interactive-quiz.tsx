@@ -12,14 +12,18 @@ import { Label } from "@/components/ui/label"
 import LatexRenderer from "@/components/ui/latex-renderer"
 import type { Quiz, QuizQuestion, QuizResults } from "@/data/types"
 
+// PERUBAHAN: Mengimpor hook dan client Supabase
+import { useAuth } from "@/contexts/auth-context"
+import { supabase } from "@/lib/supabaseClient"
+
 export default function InteractiveQuiz({
   quiz,
   onComplete,
-  onClose, // <-- 1. Menerima prop 'onClose' dari induk
+  onClose,
 }: {
   quiz: Quiz
   onComplete: (results: QuizResults) => void
-  onClose: () => void // <-- Definisikan tipe untuk prop baru
+  onClose: () => void
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<{ [questionId: string]: string | number }>({})
@@ -28,6 +32,8 @@ export default function InteractiveQuiz({
   const [showResults, setShowResults] = useState(false)
   const [quizFinalResults, setQuizFinalResults] = useState<QuizResults | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | number>("")
+  
+  const { user } = useAuth()
 
   useEffect(() => {
     if (timeLeft > 0 && !isPaused && !showResults) {
@@ -66,17 +72,17 @@ export default function InteractiveQuiz({
     }
   }
 
-  const handleSubmitQuiz = () => {
+  const handleSubmitQuiz = async () => { // Menjadi async
     let score = 0
     quiz.questions.forEach((question) => {
       const userAnswer = answers[question.id]
-      if (question.type === "multiple_choice" && question.options) {
-          const correctAnswerIndex = question.options.indexOf(question.answer as string);
-          if (Number(userAnswer) === correctAnswerIndex) {
-              score += question.points;
-          }
-      } else if (userAnswer?.toString().toLowerCase() === question.answer.toString().toLowerCase()) {
+       if (question.type === "multiple_choice" && question.options) {
+        // Jawaban benar jika opsi yang dipilih (berdasarkan index) sama dengan jawaban
+        if (question.options[Number(userAnswer)] === question.answer) {
           score += question.points;
+        }
+      } else if (userAnswer?.toString().toLowerCase() === question.answer.toString().toLowerCase()) {
+        score += question.points
       }
     })
 
@@ -85,6 +91,22 @@ export default function InteractiveQuiz({
       score: score,
       totalQuestions: quiz.questions.length,
     }
+
+    // --- PERUBAHAN BARU: Simpan hasil ke Supabase ---
+    if (user) {
+      try {
+        const { error } = await supabase.from('exam_results').insert({
+          user_id: user.id,
+          quiz_id: results.quizId,
+          score: results.score,
+          total_questions: results.totalQuestions,
+        });
+        if (error) throw error;
+      } catch (error) {
+        console.error("Gagal menyimpan hasil kuis:", error);
+      }
+    }
+    // ------------------------------------------
 
     setQuizFinalResults(results)
     setShowResults(true)
@@ -155,7 +177,7 @@ export default function InteractiveQuiz({
               <p className="text-sm text-blue-700 dark:text-blue-300">Questions Answered</p>
             </div>
           </div>
-          <Button onClick={onClose} className="w-full"> {/* <-- 2. Menggunakan prop 'onClose' */}
+          <Button onClick={onClose} className="w-full">
             Back to Quizzes
           </Button>
         </CardContent>
@@ -167,7 +189,7 @@ export default function InteractiveQuiz({
   const progress = ((currentQuestion + 1) / quiz.questions.length) * 100
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 p-4">
       <Card className="bg-white/80 dark:bg-[#1b263b]/80 backdrop-blur-sm border-gray-200 dark:border-[#415a77]/30">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
@@ -190,6 +212,7 @@ export default function InteractiveQuiz({
           </div>
         </CardContent>
       </Card>
+
       <AnimatePresence mode="wait">
         <motion.div
           key={currentQuestion}
@@ -217,6 +240,7 @@ export default function InteractiveQuiz({
           </Card>
         </motion.div>
       </AnimatePresence>
+
       <Card className="bg-white/80 dark:bg-[#1b263b]/80 backdrop-blur-sm border-gray-200 dark:border-[#415a77]/30">
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
