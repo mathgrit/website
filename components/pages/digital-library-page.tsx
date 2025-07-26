@@ -1,11 +1,13 @@
-"use client"
+"use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Library } from "lucide-react";
 import { EbookCard } from "@/components/ebook-card";
 import { EbookReaderModal } from "@/components/ebook-reader-modal";
+import PdfViewer from "@/components/pdf-viewer";  // Menggunakan default import
+import { Button } from "@/components/ui/button";  // Mengimpor Button
 import type { Ebook } from "@/data/types";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -16,6 +18,9 @@ export default function DigitalLibraryPage() {
   const [isReaderOpen, setIsReaderOpen] = useState(false);
   const [ebooks, setEbooks] = useState<Ebook[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Ref untuk modal agar kita bisa menangani klik di luar modal
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchEbooks = async () => {
@@ -29,9 +34,9 @@ export default function DigitalLibraryPage() {
           title: book.title,
           author: book.author,
           category: book.category,
-          fileUrl: book.file_url,           // mapping snake_case -> camelCase
-          totalPages: book.total_pages,     // mapping snake_case -> camelCase
-          coverImageUrl: book.cover_image_url,
+          fileUrl: book.file_url,  // Pastikan menggunakan file_url dari Supabase
+          totalPages: book.total_pages,  // Pastikan mapping dengan total_pages
+          coverImageUrl: book.cover_image_url,  // Pastikan menggunakan cover_image_url
         }));
 
         setEbooks(formattedData);
@@ -67,6 +72,21 @@ export default function DigitalLibraryPage() {
     setTimeout(() => {
       setSelectedBook(null);
     }, 300);
+  };
+
+  // Menangani klik di luar modal untuk menutupnya
+  const handleOutsideClick = (e: React.MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      handleCloseReader();
+    }
+  };
+
+  // CSS untuk container dengan scroll horizontal
+  const containerStyle: React.CSSProperties = {
+    display: "flex",
+    overflowX: "auto", // Scroll horizontal
+    overflowY: "hidden", // Sembunyikan scroll vertikal
+    whiteSpace: "nowrap", // Menghindari pembungkus elemen secara otomatis
   };
 
   return (
@@ -110,7 +130,7 @@ export default function DigitalLibraryPage() {
         {isLoading ? (
           <div className="text-center py-12 text-gray-500">Loading books...</div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          <div style={containerStyle}>
             {filteredBooks.map((book) => (
               <EbookCard key={book.id} book={book} onReadClick={handleReadClick} />
             ))}
@@ -125,7 +145,21 @@ export default function DigitalLibraryPage() {
         )}
       </div>
 
-      <EbookReaderModal isOpen={isReaderOpen} onClose={handleCloseReader} book={selectedBook} />
+      {/* Menampilkan PdfViewer untuk buku yang dipilih */}
+      {selectedBook && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={handleOutsideClick}  // Menambahkan event listener klik di luar modal
+        >
+          <div className="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 p-4 rounded-lg max-w-2xl w-full shadow-lg border border-gray-300 dark:border-gray-700" ref={modalRef}>
+            {/* Tombol Close dengan posisi absolute dan z-index tinggi */}
+            <Button onClick={handleCloseReader} variant="outline" className="absolute top-4 right-4 z-10">
+              Close
+            </Button>
+            <PdfViewer fileUrl={selectedBook.fileUrl} /> {/* Menampilkan PdfViewer */}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

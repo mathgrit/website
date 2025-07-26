@@ -1,5 +1,3 @@
-// Lokasi: components/pdf-viewer.tsx
-
 "use client";
 
 import { useState, useEffect } from 'react'; // <-- 1. Impor useEffect
@@ -72,7 +70,7 @@ export default function PdfViewer({ fileUrl }: PdfViewerProps) {
   const progressPercentage = numPages ? (pageNumber / numPages) * 100 : 0;
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-xl mx-auto"> {/* Mengatur lebar modal lebih kecil */}
       <div 
         className="bg-gray-200 dark:bg-gray-800 rounded-lg overflow-auto flex justify-center p-4 min-h-[600px] max-h-[70vh] border border-gray-300 dark:border-gray-700"
       >
@@ -129,7 +127,8 @@ export default function PdfViewer({ fileUrl }: PdfViewerProps) {
             </Button>
           </div>
           
-          <div className="flex items-center gap-4 px-1">
+          {/* Slider dengan ukuran yang lebih proporsional */}
+          <div className="flex items-center gap-4 px-1 mt-4">
             <span className="text-sm font-medium">1</span>
             <Slider
               min={1}
@@ -137,7 +136,8 @@ export default function PdfViewer({ fileUrl }: PdfViewerProps) {
               step={1}
               value={[sliderValue]} // <-- 5. Slider dikontrol oleh sliderValue
               onValueChange={handleSliderChange}
-              className="flex-1"
+              className="flex-1"  // Mengatur lebar slider agar lebih kecil dan responsif
+              style={{ maxWidth: '90%' }}  // Pastikan slider tidak terlalu besar dan responsif
             />
             <span className="text-sm font-medium">{numPages}</span>
           </div>

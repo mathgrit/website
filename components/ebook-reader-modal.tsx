@@ -37,7 +37,9 @@ export function EbookReaderModal({ isOpen, onClose, book }: EbookReaderModalProp
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl h-[90vh] flex flex-col p-0">
+      <DialogContent
+        className="max-w-2xl w-full p-0 bg-transparent" // Memperkecil modal
+      >
         <DialogHeader className="p-4 border-b flex flex-row items-center justify-between">
           <DialogTitle>{book.title}</DialogTitle>
           <DialogClose asChild>
@@ -47,11 +49,11 @@ export function EbookReaderModal({ isOpen, onClose, book }: EbookReaderModalProp
           </DialogClose>
         </DialogHeader>
 
-        {/* Konten PDF ditampilkan di sini */}
-        <div className="flex-grow bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+        {/* Menampilkan konten eBook di dalam iframe */}
+        <div className="flex-grow bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
           {book.fileUrl ? (
             <iframe
-              src={`${book.fileUrl}#page=${currentPage}`}
+              src={`${book.fileUrl}#page=${currentPage}`}  // Ensure this is a read-only file URL
               width="100%"
               height="100%"
               className="border-none"
@@ -62,13 +64,26 @@ export function EbookReaderModal({ isOpen, onClose, book }: EbookReaderModalProp
           )}
         </div>
 
-        <DialogFooter className="p-2 border-t flex items-center justify-between">
-          <Button onClick={goToPrevPage} disabled={currentPage === 1} variant="outline">
-            <ChevronLeft className="h-4 w-4 mr-2" />
+        {/* Dialog Footer untuk navigasi halaman */}
+        <DialogFooter className="p-2 border-t flex items-center justify-between space-x-4 mt-2">
+          {/* Tombol Previous */}
+          <Button 
+            onClick={goToPrevPage} 
+            disabled={currentPage === 1} 
+            variant="outline"
+            className="transform -translate-y-1"
+          >
+            <ChevronLeft className="h-2 w-2 mr-2" />
             Previous
           </Button>
           <span className="text-sm font-medium">Page {currentPage} of {totalPages}</span>
-          <Button onClick={goToNextPage} disabled={currentPage === totalPages} variant="outline">
+          {/* Tombol Next */}
+          <Button 
+            onClick={goToNextPage} 
+            disabled={currentPage === totalPages} 
+            variant="outline"
+            className="transform -translate-y-1"
+          >
             Next
             <ChevronRight className="h-4 w-4 ml-2" />
           </Button>

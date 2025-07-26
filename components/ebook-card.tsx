@@ -1,5 +1,3 @@
-// Lokasi: components/ebook-card.tsx
-
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,10 +11,10 @@ interface EbookCardProps {
 
 export function EbookCard({ book, onReadClick }: EbookCardProps) {
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 group">
+    <Card className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 group w-full sm:w-[220px] md:w-[260px]">
       <div className="aspect-[2/3] bg-gray-100 dark:bg-gray-800">
         <img
-          src={book.coverImage}
+          src={book.coverImageUrl}  // Pastikan ini menggunakan coverImageUrl
           alt={`Cover of ${book.title}`}
           className="w-full h-full object-cover"
         />
