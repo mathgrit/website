@@ -33,7 +33,6 @@ export default function Navbar() {
     { name: "Quizzes", path: "/quizzes" },
     { name: "Exams", path: "/exams" },
     { name: "Problems", path: "/problems" },
-    { name: "Library", path: "/library" },
   ];
 
   const loggedOutNavItems = [
@@ -41,7 +40,6 @@ export default function Navbar() {
     { name: "Quizzes", path: "/quizzes" },
     { name: "Exams", path: "/exams" },
     { name: "Problems", path: "/problems" },
-    { name: "Library", path: "/library" },
     { name: "About", path: "/about" },
   ];
   // ----------------------------------------------------
