@@ -2,9 +2,9 @@ import type { Course } from '../types';
 
 export const calculusCourses: Course[] = [
   {
-    id: "calc-101",
+    id: "calc-1",
     title: "Calculus I: Limits and Derivatives",
-    thumbnail: "/placeholder.svg?height=200&width=300",
+    thumbnail: "/calc.svg?height=200&width=300",
     difficulty: "Intermediate",
     duration: "15h",
     topic: "Calculus",
@@ -78,6 +78,28 @@ export const calculusCourses: Course[] = [
           "\\frac{d}{dx}[\\sin x] = \\cos x",
         ],
       },
+    ],
+  },
+
+  {
+    id: "calc-0",
+    title: "Pre-Calculus: Functions and Graphs",
+    thumbnail: "/calc.svg?height=200&width=300",
+    difficulty: "Beginner",
+    duration: "9h",
+    topic: "Calculus",
+    description: "Pelajari dasar-dasar kalkulus, seperti bilangan real, fungsi, dan polinomial.",
+    rating: 4.9,
+    students: 12000,
+
+    materials: [
+      { 
+        name: "Pre-Calculus: Functions and Graphs", 
+        type: "pdf", 
+        url: "/materials/Pre-Calculus.pdf" 
+      },
+    
+      
     ],
   },
 ];

@@ -7,7 +7,7 @@ export const discreteCourses: Course[] = [
   {
     id: "discrete-math",
     title: "Discrete Mathematics",
-    thumbnail: "/placeholder.svg?height=200&width=300",
+    thumbnail: "/diskrit.svg?height=300&width=300",
     difficulty: "Advanced",
     duration: "25h",
     topic: "Discrete",
@@ -18,7 +18,7 @@ export const discreteCourses: Course[] = [
   {
     id: "logic-sets",
     title: "Logika dan Himpunan",
-    thumbnail: "/placeholder.svg?height=200&width=300",
+    thumbnail: "/sets.png?height=200&width=300",
     difficulty: "Beginner",
     duration: "10h",
     topic: "Discrete",
@@ -50,7 +50,7 @@ export const discreteCourses: Course[] = [
   {
     id: "nt-101",
     title: "Pengantar Teori Bilangan",
-    thumbnail: "/placeholder.svg?height=200&width=300",
+    thumbnail: "/terbil.png?height=200&width=300",
     difficulty: "Beginner",
     duration: "12h",
     topic: "Discrete",

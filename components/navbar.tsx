@@ -28,7 +28,6 @@ export default function Navbar() {
 
   // --- PERUBAHAN: Menambahkan kembali "Exams" dan "Library" ---
   const loggedInNavItems = [
-    { name: "Dashboard", path: "/dashboard" },
     { name: "Lessons", path: "/lessons" },
     { name: "Quizzes", path: "/quizzes" },
     { name: "Exams", path: "/exams" },
