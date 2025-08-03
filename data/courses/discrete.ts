@@ -14,6 +14,14 @@ export const discreteCourses: Course[] = [
     description: "Dive into combinatorics, graph theory, and mathematical logic.",
     rating: 4.6,
     students: 6400,
+
+    materials: [
+      {
+        name: "Discrete Mathematics and Its Applications",
+        type: "pdf",
+        url: "/materials/Discrete Mathematics.pdf"
+      }
+    ]
   },
   {
     id: "logic-sets",
