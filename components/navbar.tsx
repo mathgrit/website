@@ -46,7 +46,7 @@ export default function Navbar() {
 
   const navItems = user ? loggedInNavItems : loggedOutNavItems;
   const logoPath = user ? "/dashboard" : "/";
-  
+
   useEffect(() => {
     const controlNavbar = () => {
       const currentScrollY = window.scrollY;
@@ -58,9 +58,9 @@ export default function Navbar() {
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', controlNavbar);
+    window.addEventListener("scroll", controlNavbar);
     return () => {
-      window.removeEventListener('scroll', controlNavbar);
+      window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY]);
 
@@ -121,28 +121,45 @@ export default function Navbar() {
               onClick={toggleTheme}
               className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400"
             >
-              {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+              {theme === "light" ? (
+                <Moon className="h-5 w-5" />
+              ) : (
+                <Sun className="h-5 w-5" />
+              )}
             </Button>
 
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    className="flex items-center space-x-2"
+                  >
                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white font-semibold">
-                      {user.full_name?.charAt(0) || user.email?.charAt(0).toUpperCase() || "U"}
+                      {user.full_name?.charAt(0) ||
+                        user.email?.charAt(0).toUpperCase() ||
+                        "U"}
                     </div>
-                    <span className="hidden sm:block text-gray-900 dark:text-white">{user.full_name || user.email}</span>
+                    <span className="hidden sm:block text-gray-900 dark:text-white">
+                      {user.full_name || user.email}
+                    </span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" className="flex items-center cursor-pointer">
+                    <Link
+                      href="/profile"
+                      className="flex items-center cursor-pointer"
+                    >
                       <User className="mr-2 h-4 w-4" />
                       Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut} className="flex items-center text-red-600 cursor-pointer">
+                  <DropdownMenuItem
+                    onClick={handleSignOut}
+                    className="flex items-center text-red-600 cursor-pointer"
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign Out
                   </DropdownMenuItem>
@@ -156,8 +173,17 @@ export default function Navbar() {
               </Link>
             )}
 
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
