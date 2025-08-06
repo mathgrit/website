@@ -17,8 +17,29 @@ export const libraryMaterials = [
     name: "Buku Teori Bilangan",
     type: "pdf",
     url: "/materials/Teori Bilangan WM.pdf",
-    topic: "Number Theory",
+    topic: "Discrete",
     image: "/book icon/terbil.png",
   },
-  // Tambahkan file lain sesuai kebutuhan
+  {
+    name: "Buku Logika Matematika Himpunan",
+    type: "pdf",
+    url: "/materials/Logika Matematika Himpunan.pdf",
+    topic: "Discrete",
+    image: "/book icon/placeholder.svg",
+  },
+  {
+    name: "Buku Logika Matematika",
+    type: "pdf",
+    url: "/materials/Buku Logika Matematika.pdf",
+    topic: "Discrete",
+    image: "/book icon/placeholder.svg",
+  },
+  {
+    name: "Buku Pra-Kalkulus",
+    type: "pdf",
+    url: "/materials/Pre-Calculus.pdf",
+    topic: "Calculus",
+    image: "/book icon/placeholder.svg",
+  },
+  
 ];

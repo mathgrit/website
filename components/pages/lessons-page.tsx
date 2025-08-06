@@ -26,10 +26,10 @@ export default function LessonsPage({ subjects }: { subjects: Subject[] }) {
           className="text-center mb-12"
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Mata Kuliah
+            Topics
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Pilih satu mata kuliah untuk memulai atau melanjutkan perjalanan belajar Anda.
+            Pilih satu topik untuk memulai atau melanjutkan perjalanan belajar Anda.
           </p>
         </motion.div>
 
@@ -60,7 +60,7 @@ export default function LessonsPage({ subjects }: { subjects: Subject[] }) {
                         {subject.description}
                       </p>
                       <div className="flex items-center justify-center text-blue-600 dark:text-cyan-400 font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                        Lihat Kursus
+                        Lihat Kelas
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </div>
                     </CardContent>
