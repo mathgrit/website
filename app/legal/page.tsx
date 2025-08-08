@@ -103,7 +103,7 @@ export default function LegalPage() {
                 <Shield className="h-6 w-6 mr-3 text-primary" />
                 Privacy Policy
               </CardTitle>
-              <p className="text-muted-foreground">Last updated: July 22, 2025</p>
+              <p className="text-muted-foreground">Last updated: August 08, 2025</p>
             </CardHeader>
             <CardContent className="prose prose-gray dark:prose-invert max-w-none">
               <section>
@@ -147,8 +147,8 @@ export default function LegalPage() {
                   If you have any questions about this Privacy Policy, please contact us at:
                 </p>
                 <div className="not-prose mt-4 p-4 bg-muted rounded-lg">
-                  <p><strong>Email:</strong> privacy@mathgrit.com</p>
-                  <p><strong>Address:</strong> 123 Education Street, Learning City, LC 12345</p>
+                  <p><strong>Email:</strong> angga@mathgrit.com</p>
+                  <p><strong>Address:</strong> Jl. Siliwangi No.63, Tawang, Kota Tasikmalaya, ID 46266</p>
                 </div>
               </section>
             </CardContent>
@@ -161,7 +161,7 @@ export default function LegalPage() {
                 <ScrollText className="h-6 w-6 mr-3 text-primary" />
                 Terms of Service
               </CardTitle>
-              <p className="text-muted-foreground">Last updated: July 22, 2025</p>
+              <p className="text-muted-foreground">Last updated: August 08, 2025</p>
             </CardHeader>
             <CardContent className="prose prose-gray dark:prose-invert max-w-none">
                 <section>
@@ -201,8 +201,8 @@ export default function LegalPage() {
                         If you have any questions about these Terms of Service, please contact us at:
                     </p>
                     <div className="not-prose mt-4 p-4 bg-muted rounded-lg">
-                        <p><strong>Email:</strong> legal@mathgrit.com</p>
-                        <p><strong>Address:</strong> 123 Education Street, Learning City, LC 12345</p>
+                        <p><strong>Email:</strong> angga@mathgrit.com</p>
+                        <p><strong>Address:</strong> Jl. Siliwangi No.63, Tawang, Kota Tasikmalaya, ID 46266</p>
                     </div>
                 </section>
             </CardContent>

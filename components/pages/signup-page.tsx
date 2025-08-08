@@ -190,11 +190,11 @@ export default function SignUpPage() {
                 <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" required />
                 <span className="ml-2 text-sm text-gray-600 dark:text-gray-300">
                   I agree to the{" "}
-                  <Link href="/terms" className="text-blue-600 dark:text-cyan-400 hover:underline">
+                  <Link href="/legal#terms-of-service" className="text-blue-600 dark:text-cyan-400 hover:underline">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link href="/privacy" className="text-blue-600 dark:text-cyan-400 hover:underline">
+                  <Link href="/legal" className="text-blue-600 dark:text-cyan-400 hover:underline">
                     Privacy Policy
                   </Link>
                 </span>
