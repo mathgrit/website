@@ -5,19 +5,24 @@ import SubjectCoursesPage from '@/components/pages/subject-courses-page';
 import { subjectsData } from '@/data/subjects-data';
 
 interface SubjectPageProps {
-  params: { subjectId: string; };
+  params: Promise<{ subjectId: string }>;
 }
 
-export async function generateMetadata({ params }: SubjectPageProps): Promise<Metadata> {
+export async function generateMetadata(props: SubjectPageProps): Promise<Metadata> {
+  const params = await props.params;
   const subject = subjectsData.find((s) => s.id === params.subjectId);
+  
   if (!subject) return { title: 'Subject Not Found' };
   return { title: `${subject.name} Courses - MathGrit` };
 }
 
-export default function SubjectPage({ params }: SubjectPageProps) {
+export default async function SubjectPage(props: SubjectPageProps) {
+  const params = await props.params;
   const subject = subjectsData.find((s) => s.id === params.subjectId);
+
   if (!subject) {
     notFound();
   }
+
   return <SubjectCoursesPage subject={subject} />;
 }

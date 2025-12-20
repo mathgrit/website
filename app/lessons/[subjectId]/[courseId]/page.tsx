@@ -5,20 +5,23 @@ import EnhancedLessonContentPage from '@/components/pages/enhanced-lesson-conten
 import { subjectsData } from '@/data/subjects-data';
 
 interface LessonPageProps {
-  params: {
+  params: Promise<{
     subjectId: string;
     courseId: string;
-  };
+  }>;
 }
 
-export async function generateMetadata({ params }: LessonPageProps): Promise<Metadata> {
+export async function generateMetadata(props: LessonPageProps): Promise<Metadata> {
+  const params = await props.params;
   const subject = subjectsData.find((s) => s.id === params.subjectId);
   const course = subject?.courses.find((c) => c.id === params.courseId);
+  
   if (!course) return { title: 'Lesson Not Found' };
   return { title: `${course.title} - MathGrit` };
 }
 
-export default function LessonPage({ params }: LessonPageProps) {
+export default async function LessonPage(props: LessonPageProps) {
+  const params = await props.params;
   const subject = subjectsData.find((s) => s.id === params.subjectId);
   const course = subject?.courses.find((c) => c.id === params.courseId);
 
