@@ -9,20 +9,16 @@ export default function LoadingTransition() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const isInitialLoad = sessionStorage.getItem('isInitialLoadDone');
-    if (!isInitialLoad) {
-      sessionStorage.setItem('isInitialLoadDone', 'true');
-      return;
-    }
-    
+    // Aktifkan loading setiap kali rute/halaman berubah
     setIsLoading(true);
-    
+
+    // Matikan loading setelah 1.2 detik
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1200);
 
     return () => clearTimeout(timer);
-  }, [pathname]);
+  }, [pathname]); // <-- Akan jalan saat ganti halaman ATAU saat refresh pertama kali
 
   return (
     <AnimatePresence>
@@ -33,11 +29,12 @@ export default function LoadingTransition() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-white/50 dark:bg-[#0d1b2a]/80 backdrop-blur-sm"
+          // Z-index saya naikkan ke 9999 biar paling atas
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/50 dark:bg-[#0d1b2a]/95 backdrop-blur-sm"
         >
           {/* Bar loading di atas */}
           <motion.div
-            className="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 z-[51]"
+            className="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 z-[10000]"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 1, ease: "circOut" }}
@@ -50,7 +47,7 @@ export default function LoadingTransition() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="flex items-center space-x-4" // Jarak antar elemen diperbesar
+            className="flex items-center space-x-4"
           >
             <motion.div
               animate={{ rotate: 360 }}
@@ -59,13 +56,11 @@ export default function LoadingTransition() {
                 duration: 1.5,
                 ease: "linear",
               }}
-              // PERUBAHAN 1: Ukuran ikon diubah dari text-4xl menjadi text-6xl
               className="text-6xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
             >
               ∞
             </motion.div>
             
-            {/* PERUBAHAN 2: Menambahkan kembali tulisan "MathGrit" */}
             <span className="text-5xl font-bold text-gray-900 dark:text-white">
               MathGrit
             </span>

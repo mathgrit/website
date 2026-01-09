@@ -33,6 +33,7 @@ export default function Navbar() {
     { name: "Exams", path: "/exams" },
     { name: "Problems", path: "/problems" },
     { name: "Library", path: "/library" },
+
   ];
 
   const loggedOutNavItems = [
