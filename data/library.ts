@@ -41,5 +41,12 @@ export const libraryMaterials = [
     topic: "Calculus",
     image: "/book icon/placeholder.svg",
   },
+  {
+    name: "Theo Courage to be dislike",
+    type: "pdf",
+    url: "/materials/y.pdf",
+    topic: "Self Improvement",
+    image: "/book icon/y.png",
+  },
   
 ];
