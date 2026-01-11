@@ -4,23 +4,17 @@ import type { ReactNode } from "react";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { ProgressProvider } from "@/contexts/progress-context";
-// import { AnimatePresence } from "framer-motion"; // <-- BIARKAN MATI DULU
-import LoadingTransition from "@/components/loading-transition"; // <-- Nyalakan ini
+// import LoadingTransition... (HAPUS IMPORT INI)
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
       <AuthProvider>
         <ProgressProvider>
+          {/* HAPUS LoadingTransition DARI SINI */}
           
-          {/* 👇 NYALAKAN INI (Aman karena dia overlay terpisah) */}
-          <LoadingTransition /> 
+          {children} 
           
-          {/* 👇 BIARKAN INI MATI (Ini biang kerok layar hitam permanen) */}
-          {/* <AnimatePresence mode="wait"> */}
-            {children}
-          {/* </AnimatePresence> */}
-
         </ProgressProvider>
       </AuthProvider>
     </ThemeProvider>
