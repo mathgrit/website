@@ -1,17 +1,18 @@
 // app/update-password/page.tsx
 "use client"
 
-import { useState, useEffect, FormEvent } from 'react'
+import { useState, useEffect, FormEvent, Suspense } from 'react' // <-- Tambahkan Suspense
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Eye, EyeOff, Lock } from 'lucide-react'
+import { Eye, EyeOff, Lock, Loader2 } from 'lucide-react' // Tambah icon Loader2 untuk fallback
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { supabase } from '@/lib/supabaseClient'
 
-export default function UpdatePasswordPage() {
+// 1. PISAHKAN LOGIC KE DALAM KOMPONEN FORM
+function UpdatePasswordForm() {
   const params = useSearchParams()
   const token = params.get('token_hash')
   const [newPassword, setNewPassword] = useState('')
@@ -161,5 +162,19 @@ export default function UpdatePasswordPage() {
         </Card>
       </motion.div>
     </div>
+  )
+}
+
+// 2. DEFAULT EXPORT HANYA SEBAGAI WRAPPER (Suspense Boundary)
+export default function UpdatePasswordPage() {
+  return (
+    // Fallback UI saat Next.js membaca URL parameter
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+      </div>
+    }>
+      <UpdatePasswordForm />
+    </Suspense>
   )
 }
