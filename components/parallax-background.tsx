@@ -48,9 +48,14 @@ export default function ParallaxBackground() {
           key={index}
           className="absolute text-blue-500/20 dark:text-cyan-400/30 font-bold select-none"
           style={{
+            // Posisi dihitung berdasarkan index (Konsisten)
             left: `${(index * 7 + 10) % 90}%`,
             top: `${(index * 11 + 15) % 80}%`,
-            fontSize: `${Math.random() * 2 + 1}rem`,
+            
+            // PERBAIKAN DI SINI:
+            // Mengganti Math.random() dengan rumus berbasis index.
+            // Ini akan menghasilkan variasi ukuran (1rem, 1.5rem, 2rem, dst) yang konsisten.
+            fontSize: `${((index % 5) * 0.5) + 1}rem`, 
           }}
           animate={{
             x: [0, 30, 0],
